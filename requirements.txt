@@ -1,5 +1,5 @@
 streamlit == 1.32.2
-opencv-contrib-python == 4.9.0.80
+//opencv-contrib-python == 4.9.0.80
 numpy == 1.26.4
 keras == 3.1.1
 matplotlib == 3.8.3
