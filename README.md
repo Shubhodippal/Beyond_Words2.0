@@ -54,5 +54,5 @@ Distributed under the MIT License. See LICENSE for more information.
 
 Contact
 Your Name - Shubhodip Pal
-Email: shubhodippal01@gmail.com
+Email: shubhodippal01@gmail.com  
 Project Link:[ https://github.com/your_username/beyond-words](https://github.com/Shubhodippal/Beyond_Words2.0)
