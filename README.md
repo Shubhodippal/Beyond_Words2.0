@@ -16,15 +16,6 @@ Keras
 Pillow
 Numpy
 
-Installation
-git clone https://github.com/your_username/beyond-words.git
-
-Install the required packages
-pip install -r requirements.txt
-
-Run the application
-streamlit run app_v.py
-
 Usage
 Select the desired input source (webcam or video file)
 Check the 'run' box to start the emotion detection
