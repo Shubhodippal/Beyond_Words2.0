@@ -50,7 +50,7 @@ Emotion detector model: https://github.com/atulapra/Emotion-detection
 Haar Cascade Classifier: https://github.com/opencv/opencv
 
 License
-Distributed under the MIT License. See LICENSE for more information.
+Distributed under the Creative Commons Zero v1.0 Universal License. See [LICENSE](https://github.com/Shubhodippal/Beyond_Words2.0/edit/beyond_words/LICENSE) for more information.
 
 Contact
 Your Name - Shubhodip Pal
