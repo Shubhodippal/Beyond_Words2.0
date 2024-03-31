@@ -32,7 +32,8 @@ The processed video frame with the detected emotion will be displayed in real-ti
 Model Architecture
 The emotion detection model is based on a pre-trained Convolutional Neural Network (CNN) with the following architecture:
 
-Input layer: 48x48 grayscale image
+Input layer: 
+48x48 grayscale image
 Conv2D layer with 32 filters, kernel size 3x3, ReLU activation
 MaxPooling2D layer with pool size 2x2
 Conv2D layer with 64 filters, kernel size 3x3, ReLU activation
@@ -43,13 +44,15 @@ Flatten layer
 Dense layer with 128 units, ReLU activation
 Dropout layer with rate 0.5
 Dense layer with 7 units (one for each emotion category), softmax activation
+
 Credits
 Emotion detector model: https://github.com/atulapra/Emotion-detection
 Haar Cascade Classifier: https://github.com/opencv/opencv
+
 License
 Distributed under the MIT License. See LICENSE for more information.
 
 Contact
-Your Name - your_email@example.com - @your_twitter
-
-Project Link: https://github.com/your_username/beyond-words
+Your Name - Shubhodip Pal
+Email: shubhodippal01@gmail.com
+Project Link:[ https://github.com/your_username/beyond-words](https://github.com/Shubhodippal/Beyond_Words2.0)
