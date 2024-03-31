@@ -15,16 +15,16 @@ OpenCV
 Keras
 Pillow
 Numpy
+
 Installation
-Clone the repository
-Copy code
 git clone https://github.com/your_username/beyond-words.git
+
 Install the required packages
-Copy code
 pip install -r requirements.txt
+
 Run the application
-Copy code
-streamlit run main.py
+streamlit run app_v.py
+
 Usage
 Select the desired input source (webcam or video file)
 Check the 'run' box to start the emotion detection
