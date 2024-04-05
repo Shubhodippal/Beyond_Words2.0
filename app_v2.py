@@ -14,7 +14,6 @@ haar_file = cv2.data.haarcascades + 'haarcascade_frontalface_alt.xml'
 face_cascade = cv2.CascadeClassifier(haar_file)
 
 labels = {0: 'angry', 1: 'disgust', 2: 'fear', 3: 'happy', 4: 'neutral', 5: 'sad', 6: 'surprise'}
-
 @st.cache(allow_output_mutation=True)
 def load_model():
     return model
@@ -23,6 +22,7 @@ def load_model():
 def detect_faces(image):
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(gray, 1.3, 5)
+    detected_labels = [] #empty list
     for (x, y, w, h) in faces:
         # Increase bounding box size by a factor of 1.5
         new_w = int(w * 1.5)
@@ -35,6 +35,7 @@ def detect_faces(image):
         roi_gray = cv2.resize(roi_gray, (48, 48))
         roi_gray = roi_gray / 255.0
         roi_gray = np.reshape(roi_gray, (1, 48, 48, 1))
+        #pred = model.predict
         return roi_gray
 
 def main():
@@ -43,6 +44,9 @@ def main():
     cam_detect = st.checkbox('Detect from webcam')
     vid_detect = st.checkbox('Detect from video file')
     run_detection = st.button('Run')
+    #analyze_file = st.button('Analyze')
+    emotion=[]
+    
     if (run_detection and (cam_detect or vid_detect)):
         if  cam_detect:
             cap = cv2.VideoCapture(0)
@@ -63,12 +67,16 @@ def main():
             if face is not None:
                 pred = model.predict(face)
                 emotion_label = labels[np.argmax(pred)]
+                emotion.append(labels[np.argmax(pred)])
                 cv2.putText(frame, emotion_label, (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 1, cv2.LINE_AA)
-
             # Display the processed frame
             video_placeholder.image(frame, channels="BGR", use_column_width=True)
     
         cap.release()
 
+    return emotion
+    
+
 if __name__ == "__main__":
-    main()
+    emotion=main() 
+    print(emotion)
