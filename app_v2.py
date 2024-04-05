@@ -56,7 +56,7 @@ def main():
             if face is not None:
                 pred = model.predict(face)
                 emotion_label = labels[np.argmax(pred)]
-                cv2.putText(frame, emotion_label, (20, 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 0.5, cv2.LINE_AA)
+                cv2.putText(frame, emotion_label, (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 1, cv2.LINE_AA)
 
             # Display the processed frame
             video_placeholder.image(frame, channels="BGR", use_column_width=True)
