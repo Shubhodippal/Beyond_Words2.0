@@ -40,7 +40,7 @@ def main():
         if  cam_detect:
             cap = cv2.VideoCapture(0)
         elif vid_detect:
-            cap = cv2.VideoCapture('EMOTION480.mp4')
+            cap = cv2.VideoCapture('EMOTION240_2.mp4')
 
         model = load_model()
         # Create an empty placeholder for the video frame
