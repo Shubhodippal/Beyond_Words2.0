@@ -24,6 +24,13 @@ def detect_faces(image):
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(gray, 1.3, 5)
     for (x, y, w, h) in faces:
+        # Increase bounding box size by a factor of 1.5
+        new_w = int(w * 1.5)
+        new_h = int(h * 1.5)
+        x_offset = int((new_w - w) / 2)  # Center the expanded box
+        y_offset = int((new_h - h) / 2)
+        #bounding box
+        cv2.rectangle(image, (x - x_offset, y - y_offset), (x + new_w - x_offset, y + new_h - y_offset), (0, 255, 0), 2)
         roi_gray = gray[y:y + h, x:x + w]
         roi_gray = cv2.resize(roi_gray, (48, 48))
         roi_gray = roi_gray / 255.0
@@ -33,9 +40,9 @@ def detect_faces(image):
 def main():
     st.title('Beyond Words')
 
-    cam_detect = st.checkbox('detect from webcam')
-    vid_detect = st.checkbox('detect from video file')
-    run_detection = st.checkbox('run')
+    cam_detect = st.checkbox('Detect from webcam')
+    vid_detect = st.checkbox('Detect from video file')
+    run_detection = st.button('Run')
     if (run_detection and (cam_detect or vid_detect)):
         if  cam_detect:
             cap = cv2.VideoCapture(0)
