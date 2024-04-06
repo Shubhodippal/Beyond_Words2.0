@@ -2,6 +2,7 @@ import streamlit as st
 import cv2
 from PIL import Image
 import numpy as np
+from streamlit_webrtc import VideoTransformerBase, WebRTCState
 from keras.models import model_from_json
 
 json_file = open("emotiondetector.json", "r")
