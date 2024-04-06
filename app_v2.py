@@ -73,9 +73,9 @@ def main():
                     cv2.putText(frame, emotion_label, (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 1, cv2.LINE_AA)
                 # Display the processed frame
                 video_placeholder.image(frame, channels="BGR", use_column_width=True)
-                '''if(brk):
-                    return emotion
-                    break'''
+                #if(brk):
+                #    return emotion
+                #    break
         cap.release()
         #analyze_list(emotion)
         return emotion
