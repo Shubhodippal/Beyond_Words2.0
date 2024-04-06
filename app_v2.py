@@ -3,6 +3,8 @@ import cv2
 from PIL import Image
 import numpy as np
 from keras.models import model_from_json
+import matplotlib.pyplot as plt
+from collections import Counter
 
 json_file = open("emotiondetector.json", "r")
 model_json = json_file.read()
@@ -75,10 +77,33 @@ def main():
                     return emotion
                     break'''
         cap.release()
+        #analyze_list(emotion)
         return emotion
 
+def analyze_list(input_list):
+    # Count the elements in the list
+    element_counts = Counter(input_list)
+    total_count = len(input_list)
     
+    # Calculate percentages
+    percentages = {element: (count / total_count) * 100 for element, count in element_counts.items()}
+    
+    # Plot the percentages
+    labels = list(percentages.keys())
+    values = list(percentages.values())
+
+    plt.figure(figsize=(8, 6))
+    plt.bar(labels, values, color='skyblue')
+    plt.xlabel('Elements')
+    plt.ylabel('Percentage')
+    plt.title('Percentage of Different Types of Elements')
+    plt.xticks(rotation=45, ha='right')
+    plt.tight_layout()
+    st.pyplot()
 
 if __name__ == "__main__":
-    emotion=main() 
-    print(emotion)
+    emotion=main()
+    if(emotion):
+        #print(emotion)
+        analyze_list(emotion)
+        #print(emotion)
