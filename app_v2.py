@@ -12,7 +12,7 @@ json_file.close()
 model = model_from_json(model_json)
 model.load_weights("emotiondetector.h5")
 
-emotion=[]
+#emotion=[]
 
 haar_file = cv2.data.haarcascades + 'haarcascade_frontalface_alt.xml'
 face_cascade = cv2.CascadeClassifier(haar_file)
@@ -48,6 +48,7 @@ def main():
     cam_detect = st.checkbox('Detect from webcam')
     vid_detect = st.checkbox('Detect from video file')
     run_detection = st.button('Run')
+    
 
     if (run_detection and (cam_detect or vid_detect)):
         if  cam_detect:
@@ -57,8 +58,8 @@ def main():
 
         model = load_model()
         # Create an empty placeholder for the video frame
+        brk = st.button('Break')
         video_placeholder = st.empty()
-        #brk = st.button('Break')
         while True:
             ret, frame = cap.read()
             if not ret:
@@ -69,25 +70,19 @@ def main():
                 if face is not None:
                     pred = model.predict(face)
                     emotion_label = labels[np.argmax(pred)]
-                    emotion.append(labels[np.argmax(pred)])
+                    #emotion.append(labels[np.argmax(pred)])
                     cv2.putText(frame, emotion_label, (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 1, cv2.LINE_AA)
+                    # Append labels to the output file
+                    with open('output.txt', 'a') as file:
+                        file.write(f"{emotion_label}\n")
                 # Display the processed frame
                 video_placeholder.image(frame, channels="BGR", use_column_width=True)
-                #if(brk):
-                #    return emotion
-                #    break
+                if(brk):
+                    break
         cap.release()
-        #analyze_list(emotion)
-        return emotion
 
 if __name__ == "__main__":
-    emotion=main()
-    if(emotion):
-        file_name = 'output.txt'
-
-        # Write the string representation of the list to the file
-        with open(file_name, 'w') as file:
-            for item in emotion:
-                file.write("%s\n" % item)
+    main()
+    
             
         

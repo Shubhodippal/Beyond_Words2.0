@@ -35,15 +35,17 @@ def plot_pie_chart(percentages):
 
 def main():
     st.title("Analyzed Result")
+    analyze_result = st.button('Analyze')
 
     file_name = ("output.txt")
-    if file_name is not None:
-        elements = read_elements_from_file(file_name)
-        st.write("Elements in the file:", elements)
-        percentages = calculate_percentage(elements)
-        st.write("Percentage of each element:", percentages)
-        fig = plot_pie_chart(percentages)
-        st.pyplot(fig)
+    if(analyze_result):
+        if file_name is not None:
+            elements = read_elements_from_file(file_name)
+            st.write("Elements in the file:", elements)
+            percentages = calculate_percentage(elements)
+            st.write("Percentage of each element:", percentages)
+            fig = plot_pie_chart(percentages)
+            st.pyplot(fig)
 
 if __name__ == "__main__":
     st.set_option('deprecation.showPyplotGlobalUse', False)
