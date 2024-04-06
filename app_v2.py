@@ -105,6 +105,7 @@ def analyze_list(input_list):
 if __name__ == "__main__":
     emotion=main()
     if(emotion):
+        st.title("Result")
         #print(emotion)
         analyze_list(emotion)
         #print(emotion)
