@@ -53,6 +53,7 @@ def main():
     Del =  st.button('Delete Data')
     if Del :
         os.remove("output.txt")
+        os.remove("temp_video.mp4")
         
 if __name__ == "__main__":
     st.set_option('deprecation.showPyplotGlobalUse', False)

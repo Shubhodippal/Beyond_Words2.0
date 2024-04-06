@@ -59,38 +59,47 @@ def main():
 
     cam_detect = st.checkbox('Detect from webcam')
     vid_detect = st.checkbox('Detect from video file')
-    run_detection = st.button('Run')
     
+    # Video selection options
+    #video_options = ["EMOTION480.mp4", "video2.mp4", "video3.mp4"]
+    #if vid_detect:
+        #selected_video = st.selectbox("Select Video", video_options)
 
-    if (run_detection and (cam_detect or vid_detect)):
+    if (cam_detect or vid_detect):
         if  cam_detect:
             cap = cv2.VideoCapture(0)
         elif vid_detect:
-            cap = cv2.VideoCapture('EMOTION480.mp4')
-
-        model = load_model()
-        # Create an empty placeholder for the video frame
-        brk = st.button('Break')
-        video_placeholder = st.empty()
-        while True:
-            ret, frame = cap.read()
-            if not ret:
-                break
-            else:
-                # Detect faces and emotions
-                face = detect_faces(frame)
-                if face is not None:
-                    pred = model.predict(face)
-                    emotion_label = labels[np.argmax(pred)]
-                    #emotion.append(labels[np.argmax(pred)])
-                    cv2.putText(frame, emotion_label, (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 1, cv2.LINE_AA)
-                    # Append labels to the output file
-                    with open('output.txt', 'a') as file:
-                        file.write(f"{emotion_label}\n")
-                # Display the processed frame
-                video_placeholder.image(frame, channels="BGR", use_column_width=True)
-                if(brk):
+            selected_video = st.file_uploader("Upload a video file", type=['mp4', 'avi'])
+            if selected_video is not None:
+                # Save the uploaded video file temporarily
+                with open('temp_video.mp4', 'wb') as f:
+                    f.write(selected_video.read())
+                cap = cv2.VideoCapture('temp_video.mp4')
+        run_detection = st.button('Run')
+        if run_detection:
+            model = load_model()
+            # Create an empty placeholder for the video frame
+            brk = st.button('Break')
+            video_placeholder = st.empty()
+            while True:
+                ret, frame = cap.read()
+                if not ret:
                     break
+                else:
+                    # Detect faces and emotions
+                    face = detect_faces(frame)
+                    if face is not None:
+                        pred = model.predict(face)
+                        emotion_label = labels[np.argmax(pred)]
+                        #emotion.append(labels[np.argmax(pred)])
+                        cv2.putText(frame, emotion_label, (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 1, cv2.LINE_AA)
+                        # Append labels to the output file
+                        with open('output.txt', 'a') as file:
+                            file.write(f"{emotion_label}\n")
+                    # Display the processed frame
+                    video_placeholder.image(frame, channels="BGR", use_column_width=True)
+                    if(brk):
+                        break
         cap.release()
 
 if __name__ == "__main__":
