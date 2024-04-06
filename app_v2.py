@@ -5,6 +5,7 @@ import numpy as np
 from keras.models import model_from_json
 import matplotlib.pyplot as plt
 from collections import Counter
+from pathlib import Path
 
 json_file = open("emotiondetector.json", "r")
 model_json = json_file.read()
@@ -41,6 +42,17 @@ def detect_faces(image):
         roi_gray = np.reshape(roi_gray, (1, 48, 48, 1))
         #pred = model.predict
         return roi_gray
+
+def delete(file_path):
+    try:
+        file = Path(file_path)
+        if file.is_file():
+            file.unlink()
+            print(f"{file_path} deleted successfully")
+        else:
+            print(f"File not found: {file_path}")
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
 def main():
     st.title('Beyond Words')
