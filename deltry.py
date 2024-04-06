@@ -12,7 +12,7 @@ def main():
     st.title("File Deletion App")
 
     # Text input for file name
-    file_name = st.text_input("Enter file name to delete (e.g., myfile.txt):")
+    file_name = ('output.txt')
     
     if file_name:
         if st.button("Delete File"):

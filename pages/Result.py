@@ -1,7 +1,6 @@
 import streamlit as st
 import matplotlib.pyplot as plt
-
-from pathlib import Path
+import os
 
 # Read elements from the .txt file
 def read_elements_from_file(file_name):
@@ -35,16 +34,6 @@ def plot_pie_chart(percentages):
     ax.set_title('Element Percentages')
     return fig
 
-def delete(file_path):
-    try:
-        file = Path(file_path)
-        if file.is_file():
-            file.unlink()
-            print(f"{file_path} deleted successfully")
-        else:
-            print(f"File not found: {file_path}")
-    except Exception as e:
-        print(f"An error occurred: {e}")
 
 def main():
     st.title("Analyzed Result")
@@ -52,6 +41,7 @@ def main():
 
 
     file_name = ("output.txt")
+
     if(analyze_result):
         if file_name is not None:
             elements = read_elements_from_file(file_name)
@@ -60,12 +50,10 @@ def main():
             st.write("Percentage of each element:", percentages)
             fig = plot_pie_chart(percentages)
             st.pyplot(fig)
-        Del =  st.button('Delete Data')
-        if Del :
-            file = Path("output.txt")
-            if file.is_file():
-                file.unlink()
-    
+    Del =  st.button('Delete Data')
+    if Del :
+        os.remove("output.txt")
+        
 if __name__ == "__main__":
     st.set_option('deprecation.showPyplotGlobalUse', False)
     main()

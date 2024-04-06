@@ -5,6 +5,7 @@ import librosa
 import soundfile
 import pickle
 import numpy as np
+import os
 
 def extract_feature(file_name, mfcc, chroma, mel):
     with soundfile.SoundFile(file_name) as sound_file:
@@ -38,7 +39,7 @@ def record_audio(duration, filename):
 st.title("Audio Recorder")
 
 duration = st.number_input("Recording duration (seconds):", min_value=1, max_value=60, value=5, step=1)
-filename = st.text_input("Enter filename to save:", "recorded_audio.wav")
+filename = "recorded_audio.wav"
 samplerate = 48100  # Sample rate in Hz
 
 if st.button("Start Recording"):
@@ -56,3 +57,7 @@ if (filename):
 
     prediction=loaded_model.predict(feature)
     st.write(prediction)
+Del =  st.button('Delete Data')
+if Del :
+    os.remove("recorded_audio.wav")
+        
