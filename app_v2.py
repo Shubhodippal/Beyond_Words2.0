@@ -10,6 +10,8 @@ json_file.close()
 model = model_from_json(model_json)
 model.load_weights("emotiondetector.h5")
 
+emotion=[]
+
 haar_file = cv2.data.haarcascades + 'haarcascade_frontalface_alt.xml'
 face_cascade = cv2.CascadeClassifier(haar_file)
 
@@ -44,9 +46,7 @@ def main():
     cam_detect = st.checkbox('Detect from webcam')
     vid_detect = st.checkbox('Detect from video file')
     run_detection = st.button('Run')
-    #analyze_file = st.button('Analyze')
-    emotion=[]
-    
+
     if (run_detection and (cam_detect or vid_detect)):
         if  cam_detect:
             cap = cv2.VideoCapture(0)
@@ -56,25 +56,27 @@ def main():
         model = load_model()
         # Create an empty placeholder for the video frame
         video_placeholder = st.empty()
-
-        while cap.isOpened():
+        #brk = st.button('Break')
+        while True:
             ret, frame = cap.read()
             if not ret:
                 break
-
-            # Detect faces and emotions
-            face = detect_faces(frame)
-            if face is not None:
-                pred = model.predict(face)
-                emotion_label = labels[np.argmax(pred)]
-                emotion.append(labels[np.argmax(pred)])
-                cv2.putText(frame, emotion_label, (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 1, cv2.LINE_AA)
-            # Display the processed frame
-            video_placeholder.image(frame, channels="BGR", use_column_width=True)
-    
+            else:
+                # Detect faces and emotions
+                face = detect_faces(frame)
+                if face is not None:
+                    pred = model.predict(face)
+                    emotion_label = labels[np.argmax(pred)]
+                    emotion.append(labels[np.argmax(pred)])
+                    cv2.putText(frame, emotion_label, (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 1, cv2.LINE_AA)
+                # Display the processed frame
+                video_placeholder.image(frame, channels="BGR", use_column_width=True)
+                '''if(brk):
+                    return emotion
+                    break'''
         cap.release()
+        return emotion
 
-    return emotion
     
 
 if __name__ == "__main__":
