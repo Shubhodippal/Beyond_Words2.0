@@ -12,6 +12,9 @@ from sklearn.metrics import accuracy_score, f1_score
 import pyaudio
 import wave
 
+i=0
+acc=[]
+
 emotions = {
     '01': 'neutral',
     '02': 'calm',
@@ -55,7 +58,7 @@ def extract_feature(file_name, mfcc, chroma, mel):
 # Load the data and extract features for each sound file
 def load_data(test_size=0.2):
     x, y = [], []
-    for file in glob.glob("D:\Code\Projects\Beyond_Words\speech-emotion-recognition-ravdess-data\*\*.wav"):
+    for file in glob.glob("D:\Code\Projects\Beyond_Words2.0\speech-emotion-recognition-ravdess-data\*\*.wav"):
         file_name = os.path.basename(file)
         emotion = emotions[file_name.split("-")[2]]
         
@@ -90,7 +93,10 @@ def trainModel():
     # Print the accuracy
     print("Accuracy: {:.2f}%".format(accuracy*100))
 
-    f1_score(y_test, y_pred,average=None)
+    f1=f1_score(y_test, y_pred,average='weighted')
+    print(f1)
+    with open('ser_models\ser_f1.txt', 'a') as file:
+        file.write(f"{f1}\n")
 
     df=pd.DataFrame({'Actual': y_test, 'Predicted':y_pred})
     df.head(20)
@@ -101,11 +107,12 @@ def trainModel():
 
 
 while True:
-    i=0
-    print(i)
-    i+=1
+    print(f"in {i} th iteraion")
     accr = trainModel()
-    if accr>70:
-        with open( f"modelForPrediction{i}.sav", 'wb') as f:
-            pickle.dump(model,f)
-        break
+    acc.append(accr)
+    with open('ser_models\ser_accr.txt', 'a') as file:
+        file.write(f"{accr}\n")
+    with open( f"ser_models\{i}th_modelForPrediction_{accr}%.sav", 'wb') as f:
+        pickle.dump(model,f)
+    print("\n-------------------------------------------------------------------------------------------------------\n")
+    i+=1
