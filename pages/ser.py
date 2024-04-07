@@ -47,17 +47,20 @@ if st.button("Start Recording"):
     record_audio(duration, filename)
     st.write(f"Recording saved as {filename}")
 
-model = '76th_modelForPrediction_56.94444444444444%.sav'
+model = '49th_modelForPrediction_57.22222222222222%.sav'
 loaded_model = pickle.load(open(model, 'rb')) # loading the model file from the storage
 
-if (filename):
+if (os.path.exists(filename)):
     feature=extract_feature(filename, mfcc=True, chroma=True, mel=True)
 
     feature=feature.reshape(1,-1)
 
     prediction=loaded_model.predict(feature)
-    st.write(prediction)
-Del =  st.button('Delete Data')
-if Del :
-    os.remove("recorded_audio.wav")
+
+    run = st.button("Analyze")
+    if run:
+        st.write(prediction)
+    Del =  st.button('Delete Data')
+    if Del and os.path.exists(filename) :
+        os.remove("recorded_audio.wav")
         
