@@ -1,6 +1,7 @@
 import streamlit as st
 import matplotlib.pyplot as plt
 import os
+from io import BytesIO
 
 # Read elements from the .txt file
 def read_elements_from_file(file_name):
@@ -50,6 +51,13 @@ def main():
             st.write("Percentage of each element:", percentages)
             fig = plot_pie_chart(percentages)
             st.pyplot(fig)
+            csv_data = '\n'.join([f'{element},{percentage}' for element, percentage in percentages.items()])
+            st.download_button(
+                label="Download Data as CSV",
+                data=csv_data,
+                file_name='analyzed_data.csv',
+                mime='text/csv'
+            )
     Del =  st.button('Delete Data')
     if Del :
         os.remove("output.txt")
