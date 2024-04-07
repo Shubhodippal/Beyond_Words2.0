@@ -58,7 +58,7 @@ def extract_feature(file_name, mfcc, chroma, mel):
 # Load the data and extract features for each sound file
 def load_data(test_size=0.2):
     x, y = [], []
-    for file in glob.glob("D:\Code\Projects\Beyond_Words2.0\speech-emotion-recognition-ravdess-data\*\*.wav"):
+    for file in glob.glob("D:\Coding\Project\Beyond_Words2.0\Beyond_Words2.0\speech-emotion-recognition-ravdess-data\*\*.wav"):
         file_name = os.path.basename(file)
         emotion = emotions[file_name.split("-")[2]]
         

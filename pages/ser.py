@@ -47,7 +47,7 @@ if st.button("Start Recording"):
     record_audio(duration, filename)
     st.write(f"Recording saved as {filename}")
 
-model = 'modelForPrediction1.sav'
+model = '76th_modelForPrediction_56.94444444444444%.sav'
 loaded_model = pickle.load(open(model, 'rb')) # loading the model file from the storage
 
 if (filename):
