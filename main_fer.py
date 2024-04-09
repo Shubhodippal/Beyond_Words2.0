@@ -13,21 +13,17 @@ json_file.close()
 model = model_from_json(model_json)
 model.load_weights("emotiondetector.h5")
 
-#emotion=[]
-
 haar_file = cv2.data.haarcascades + 'haarcascade_frontalface_alt.xml'
 face_cascade = cv2.CascadeClassifier(haar_file)
 
 labels = {0: 'angry', 1: 'disgust', 2: 'fear', 3: 'happy', 4: 'neutral', 5: 'sad', 6: 'surprise'}
-@st.cache(allow_output_mutation=True)
-def load_model():
-    return model
-
-@st.cache(allow_output_mutation=True)
+#@st.cache(allow_output_mutation=True)
+#def load_model():
+#    return model
+#@st.cache(allow_output_mutation=True)
 def detect_faces(image):
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(gray, 1.3, 5)
-    detected_labels = [] #empty list
     for (x, y, w, h) in faces:
         # Increase bounding box size by a factor of 1.5
         new_w = int(w * 1.5)
@@ -40,30 +36,13 @@ def detect_faces(image):
         roi_gray = cv2.resize(roi_gray, (48, 48))
         roi_gray = roi_gray / 255.0
         roi_gray = np.reshape(roi_gray, (1, 48, 48, 1))
-        #pred = model.predict
         return roi_gray
-
-def delete(file_path):
-    try:
-        file = Path(file_path)
-        if file.is_file():
-            file.unlink()
-            print(f"{file_path} deleted successfully")
-        else:
-            print(f"File not found: {file_path}")
-    except Exception as e:
-        print(f"An error occurred: {e}")
 
 def main():
     st.title('Beyond Words')
 
     cam_detect = st.checkbox('Detect from webcam')
     vid_detect = st.checkbox('Detect from video file')
-    
-    # Video selection options
-    #video_options = ["EMOTION480.mp4", "video2.mp4", "video3.mp4"]
-    #if vid_detect:
-        #selected_video = st.selectbox("Select Video", video_options)
 
     if (cam_detect or vid_detect):
         if  cam_detect:
@@ -77,7 +56,6 @@ def main():
                 cap = cv2.VideoCapture('temp_video.mp4')
         run_detection = st.button('Run')
         if run_detection:
-            model = load_model()
             # Create an empty placeholder for the video frame
             brk = st.button('Break')
             video_placeholder = st.empty()
