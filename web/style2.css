@@ -2,7 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-image: url("https://pikbest.com//backgrounds/qianku-simple-tech-geometric-white-business-background_6247777.html"); /* Replace with your image path */
+    background-image: url("about.jpg"); /* Replace with your image path */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -15,7 +15,7 @@ body {
   .container {
     text-align: center;
     padding: 2rem;
-    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    background-color: rgba(230, 250, 255, 0.3); /* Semi-transparent white background */
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     margin: 0 auto; /* Center the container horizontally */
@@ -31,7 +31,11 @@ body {
     right: 10px;
   }
   .navigation a {
-    color:white;
+    color:rgb(68, 33, 221);
     text-decoration: none;
     padding: 0 10px;
+  }
+  footer button {
+    background-color: rgba(148, 224, 238, 0.781);
+    color: rgb(2, 2, 2);
   }

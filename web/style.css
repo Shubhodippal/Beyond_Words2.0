@@ -39,7 +39,7 @@ h1 {
   right: 10px;
 }
 .navigation a {
-  color:white;
+  color:rgba(65, 31, 187, 0.692);
   text-decoration: none;
   padding: 0 10px;
 }
