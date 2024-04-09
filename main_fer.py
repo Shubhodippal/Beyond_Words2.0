@@ -1,11 +1,7 @@
 import streamlit as st
 import cv2
-from PIL import Image
 import numpy as np 
 from keras.models import model_from_json
-import matplotlib.pyplot as plt
-from collections import Counter
-from pathlib import Path
 
 json_file = open("emotiondetector.json", "r")
 model_json = json_file.read()
@@ -17,10 +13,7 @@ haar_file = cv2.data.haarcascades + 'haarcascade_frontalface_alt.xml'
 face_cascade = cv2.CascadeClassifier(haar_file)
 
 labels = {0: 'angry', 1: 'disgust', 2: 'fear', 3: 'happy', 4: 'neutral', 5: 'sad', 6: 'surprise'}
-#@st.cache(allow_output_mutation=True)
-#def load_model():
-#    return model
-#@st.cache(allow_output_mutation=True)
+
 def detect_faces(image):
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(gray, 1.3, 5)
