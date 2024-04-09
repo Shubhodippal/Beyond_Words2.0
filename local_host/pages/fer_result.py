@@ -59,8 +59,11 @@ def main():
             )
     Del =  st.button('Delete Data')
     if Del :
-        os.remove("output.txt")
-        os.remove("temp_video.mp4")
+        if os.path.exists("output.txt") and os.path.exists("temp_video.mp4"):
+            os.remove("output.txt")
+            os.remove("temp_video.mp4")
+        else:
+            st.write("The file has allready been deleted or it doesnt exist.")
         
 if __name__ == "__main__":
     st.set_option('deprecation.showPyplotGlobalUse', False)

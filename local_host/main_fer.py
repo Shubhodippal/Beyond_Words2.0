@@ -40,6 +40,9 @@ def main():
     if (cam_detect or vid_detect):
         if  cam_detect:
             cap = cv2.VideoCapture(0)
+            # Create an empty file
+            with open('temp_video.mp4', 'w') as f:
+                pass
         elif vid_detect:
             selected_video = st.file_uploader("Upload a video file", type=['mp4', 'avi'])
             if selected_video is not None:
