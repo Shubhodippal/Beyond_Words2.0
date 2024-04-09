@@ -1,7 +1,6 @@
 import streamlit as st
 import matplotlib.pyplot as plt
 import os
-from io import BytesIO
 
 # Read elements from the .txt file
 def read_elements_from_file(file_name):
