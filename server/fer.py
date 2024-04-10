@@ -74,7 +74,7 @@ def main():
                 i += 1
             st.success("Processing Done")
             st.write("You can see the results in result section")
-        cap.release()
+            cap.release()
 
 if __name__ == "__main__":
     main()
