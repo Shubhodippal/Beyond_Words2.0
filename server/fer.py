@@ -8,7 +8,6 @@ import json
 import requests
 
 
-HARDCODED_OPENAI_API_KEY = "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"
 AI_REPORT_TONE = "professional"
 AI_REPORT_DEPTH = "detailed"
 AI_REPORT_MODEL = "gpt-5.4-2026-03-05"
@@ -43,9 +42,6 @@ def init_session_state():
 
 
 def get_openai_api_key():
-    if HARDCODED_OPENAI_API_KEY:
-        return HARDCODED_OPENAI_API_KEY
-
     env_key = os.getenv("OPENAI_API_KEY")
     if env_key:
         return env_key
