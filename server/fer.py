@@ -335,13 +335,12 @@ def main():
             if analysis_payload:
                 st.subheader("AI Report (OpenAI)")
                 key_from_env_or_secrets = get_openai_api_key()
-                manual_key = st.text_input("OpenAI API Key (optional override)", type="password")
 
                 st.caption("AI report mode: professional • detailed • gpt-5.4-2026-03-05")
 
                 generate_report = st.button("Generate AI Report")
                 if generate_report:
-                    api_key = manual_key.strip() or key_from_env_or_secrets
+                    api_key = key_from_env_or_secrets
                     if not api_key:
                         st.error("OpenAI API key is required. Set OPENAI_API_KEY or provide it above.")
                     else:
