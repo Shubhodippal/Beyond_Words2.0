@@ -279,7 +279,6 @@ def main():
                 file.write("")
 
             cap = cv2.VideoCapture('temp_video.mp4')
-            video_placeholder = st.empty()
             progress_bar = st.progress(0)
             progress_status = st.empty()
 
@@ -299,11 +298,8 @@ def main():
                     pred = model.predict(face)
                     emotion_label = labels[np.argmax(pred)]
                     detected_emotions.append(emotion_label)
-                    cv2.putText(frame, emotion_label, (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 1, cv2.LINE_AA)
                     with open('output.txt', 'a') as file:
                         file.write(f"{emotion_label}\n")
-
-                video_placeholder.image(frame, channels="BGR", use_column_width=True)
 
                 if total_frames > 0:
                     progress_value = min(processed_frames / total_frames, 1.0)
